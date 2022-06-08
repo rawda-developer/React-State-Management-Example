@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { counterState } from './counterState';
 import { incrementByState } from './incrementByState';
 import { decrementByState } from './decrementByState';
+import { counterStateSelector } from './counterStateSelector';
 export const ButtonCounterWithRecoil = () => {
   const [counter, setCounter] = useRecoilState(counterState);
   const [incrementByStateValue, setIncrementByValue] =
     useRecoilState(incrementByState);
   const [decrementByValue] = useRecoilState(decrementByState);
-
+  const getCountType = useRecoilValue(counterStateSelector);
   return (
     <>
       <label>
@@ -24,6 +25,7 @@ export const ButtonCounterWithRecoil = () => {
       </button>
       <button onClick={() => setCounter(counter - decrementByValue)}>-</button>
       <p>{counter}</p>
+      <p>Count data type is {getCountType}</p>
     </>
   );
 };
